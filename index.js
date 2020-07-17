@@ -49,13 +49,13 @@ bot.on('text', (msg) => {
       if (!chat_id || !text || !tg_whitelist.some(v => {
         v = String(v).toLowerCase()
         return v === username || v === user_id
-      })) return console.warn('异常请求')
+      })) return console.warn('Abnormal request')
 
         const fid = extract_fid(text) || extract_from_text(text)
         const no_fid_commands = ['/task', '/help', '/bm']
         if (!no_fid_commands.some(cmd => text.startsWith(cmd)) && !validate_fid(fid)) {
           // console.log("is_shell:"+is_shell);
-          sm({ chat_id, text: '未识别出分享ID' })
+          sm({ chat_id, text: 'Share ID not recognized' })
           is_shell = true
         }
         if (text.startsWith('/help')) return send_help(chat_id)
@@ -63,35 +63,35 @@ bot.on('text', (msg) => {
           const [cmd, action, alias, target] = text.split(' ').map(v => v.trim())
           if (!action) return send_all_bookmarks(chat_id)
           if (action === 'set') {
-            if (!alias || !target) return sm({ chat_id, text: '别名和目标ID不能为空' })
-            if (alias.length > 24) return sm({ chat_id, text: '别名不要超过24个英文字符长度' })
-            if (!validate_fid(target)) return sm({ chat_id, text: '目标ID格式有误' })
+            if (!alias || !target) return sm({ chat_id, text: 'Alias ​​and target ID cannot be empty' })
+            if (alias.length > 24) return sm({ chat_id, text: 'Aliases should not exceed 24 English characters in length' })
+            if (!validate_fid(target)) return sm({ chat_id, text: 'Incorrect target ID format' })
             set_bookmark({ chat_id, alias, target })
           } else if (action === 'unset') {
-            if (!alias) return sm({ chat_id, text: '别名不能为空' })
+            if (!alias) return sm({ chat_id, text: 'Alias ​​cannot be empty' })
             unset_bookmark({ chat_id, alias })
           } else {
             send_bm_help(chat_id)
           }
         } else if (text.startsWith('/count')) {
-          if (counting[fid]) return sm({ chat_id, text: fid + ' 正在统计，请稍等片刻' })
+          if (counting[fid]) return sm({ chat_id, text: fid + ' Statistics, please wait a moment' })
           try {
             counting[fid] = true
             const update = text.endsWith(' -u')
             send_count({ fid, chat_id, update })
           } catch (err) {
             console.error(err)
-            sm({ chat_id, text: fid + ' 统计失败：' + err.message })
+            sm({ chat_id, text: fid + ' Statistics failed：' + err.message })
           } finally {
             delete counting[fid]
           }
         } else if (text.startsWith('/copy')) {
           let target = text.replace('/copy', '').replace(' -u', '').trim().split(' ').map(v => v.trim())[1]
           target = get_target_by_alias(target) || target
-          if (target && !validate_fid(target)) return sm({ chat_id, text: `目标ID ${target} 格式不正确` })
+          if (target && !validate_fid(target)) return sm({ chat_id, text: `Goal ID ${target} Malformed` })
           const update = text.endsWith(' -u')
           tg_copy({ fid, target, chat_id, update }).then(task_id => {
-            task_id && sm({ chat_id, text: `开始复制，任务ID: ${task_id} 可输入 /task ${task_id} 查询进度` })
+            task_id && sm({ chat_id, text: `Start copying，Task ID: ${task_id}Can be entered /task ${task_id} Query progress` })
           })
         } else if (text.startsWith('/task')) {
           let task_id = text.replace('/task', '').trim()
@@ -110,7 +110,7 @@ bot.on('text', (msg) => {
           task_id = parseInt(task_id)
           if (!task_id) {
             const running_tasks = db.prepare('select id from task where status=?').all('copying')
-            if (!running_tasks.length) return sm({ chat_id, text: '当前暂无运行中的任务' })
+            if (!running_tasks.length) return sm({ chat_id, text: 'There are currently no running tasks' })
             return running_tasks.forEach(v => send_task_info({ chat_id, task_id: v.id }).catch(console.error))
           }
           send_task_info({ task_id, chat_id }).catch(console.error)
@@ -118,14 +118,14 @@ bot.on('text', (msg) => {
             return send_choice({ fid: fid || text, chat_id }).catch(console.error)
             // let replyMarkup = bot.inlineKeyboard([
             //     [
-            //         bot.inlineButton('文件统计', {callback: `count ${fid}` }),
-            //         bot.inlineButton('开始复制', {callback: `copy ${fid}` })
+            //         bot.inlineButton('File statistics', {callback: `count ${fid}` }),
+            //         bot.inlineButton('Start copying', {callback: `copy ${fid}` })
             //     ].concat(gen_bookmark_choices(fid))
             // ]);
-            // return bot.sendMessage(id, `识别出分享ID ${fid}，请选择动作`, {replyMarkup});
+            // return bot.sendMessage(id, `Identify the share ID ${fid}，Please select an action`, {replyMarkup});
         } else {
             is_shell = true
-            // sm({ chat_id, text: '暫不支持此命令' })
+            // sm({ chat_id, text: 'This command is currently not supported' })
         }
 
     if (is_shell) {
@@ -167,20 +167,20 @@ bot.on('callbackQuery', msg => {
     // console.log("data:"+data);
     // console.log("action:"+action);console.log("fid:"+fid);
     if (action === 'count') {
-      if (counting[fid]) return sm({ chat_id, text: fid + ' 正在统计，请稍等片刻' })
+      if (counting[fid]) return sm({ chat_id, text: fid + ' Statistics, please wait a moment' })
       counting[fid] = true
       send_count({ fid, chat_id }).catch(err => {
         console.error(err)
-        sm({ chat_id, text: fid + ' 统计失败：' + err.message })
+        sm({ chat_id, text: fid + ' Statistics failed：' + err.message })
       }).finally(() => {
         delete counting[fid]
       })
     } else if (action === 'copy') {
       console.log("copy id:"+id);
-      if (COPYING_FIDS[fid]) return sm({ chat_id, text: `正在处理 ${fid} 的复制命令` })
+      if (COPYING_FIDS[fid]) return sm({ chat_id, text: `Processing ${fid} Copy command` })
       COPYING_FIDS[fid] = true
       tg_copy({ fid, target: get_target_by_alias(target), chat_id }).then(task_id => {
-        task_id && sm({ chat_id, text: `开始复制，任务ID: ${task_id} 可输入 /task ${task_id} 查询进度` })
+        task_id && sm({ chat_id, text: `Start copying, task ID: ${task_id} Can be entered /task ${task_id} Query progress` })
       }).finally(() => COPYING_FIDS[fid] = false)
     }
     return reply_cb_query({ id, data }).catch(console.error)
