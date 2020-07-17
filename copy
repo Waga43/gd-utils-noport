@@ -3,19 +3,19 @@
 const bytes = require('bytes')
 
 const { argv } = require('yargs')
-  .usage('用法: ./$0 <source id> <target id> [options]\ntarget id可选，不填则使用config.js里的DEFAULT_TARGET')
+  .usage('usage: ./$0 <source id> <target id> [options]\ntarget id optional，If not filled, use DEFAULT_TARGET in config.js')
   .alias('u', 'update')
-  .describe('u', '不使用本地缓存，强制从线上获取源文件夹信息')
+  .describe('u', 'Do not use local cache, force to obtain source folder information from online')
   .alias('f', 'file')
-  .describe('f', '复制单个文件')
+  .describe('f', 'Copy a single file')
   .alias('n', 'name')
-  .describe('n', '给目标文件夹重命名，不填则保留原始目录名')
+  .describe('n', 'Rename the target folder, keep the original directory name if not filled in')
   .alias('N', 'not_teamdrive')
-  .describe('N', '如果不是团队盘链接，可以加上此参数以提高接口查询效率，降低延迟')
+  .describe('N', 'If it is not a team disk link, you can add this parameter to improve the interface query efficiency and reduce latency')
   .alias('s', 'size')
-  .describe('s', '不填默认拷贝全部文件，如果设置了这个值，则过滤掉小于这个size的文件，必须以b结尾，比如10mb')
+  .describe('s', 'Do not fill in the default copy all files, if this value is set, then filter out files smaller than this size, must end with b, such as 10mb')
   .alias('S', 'service_account')
-  .describe('S', '指定使用service account进行操作，前提是必须在 ./sa 目录下放置json授权文件，请确保sa帐号拥有操作权限。')
+  .describe('S', 'Specify to use the service account for operation, provided that the json authorization file must be placed in the ./sa directory. Please make sure that the sa account has operation permissions.')
   .help('h')
   .alias('h', 'help')
 
@@ -28,22 +28,22 @@ if (validate_fid(source)) {
   const { name, update, file, not_teamdrive, size, service_account } = argv
   if (file) {
     target = target || DEFAULT_TARGET
-    if (!validate_fid(target)) throw new Error('target id 格式不正确')
+    if (!validate_fid(target)) throw new Error('The target id format is incorrect')
     return copy_file(source, target).then(r => {
       const link = 'https://drive.google.com/drive/folders/' + target
-      console.log('任务完成，文件所在位置：\n', link)
+      console.log('The task is completed, the location of the file：\n', link)
     }).catch(console.error)
   }
   let min_size
   if (size) {
-    console.log(`不复制大小低于 ${size} 的文件`)
+    console.log(`Do not copy files with a size less than ${size}`)
     min_size = bytes.parse(size)
   }
   copy({ source, target, name, min_size, update, not_teamdrive, service_account }).then(folder => {
     if (!folder) return
     const link = 'https://drive.google.com/drive/folders/' + folder.id
-    console.log('\n任务完成，新文件夹链接：\n', link)
+    console.log('\nTask completed, new folder link：\n', link)
   })
 } else {
-  console.warn('目录ID缺失或格式错误')
+  console.warn('Directory ID is missing or malformed')
 }
