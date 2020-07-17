@@ -32,7 +32,7 @@ If you use the tg operation, after sending the copy command, the /task progress 
 This is because the program is getting all file information of the source folder. Its operating mechanism is strictly in the following order:
 ```
 1. Get all the file information of the source folder 
-2. Create a directory in the target folder according to the directory structure of the source folde 
+2. Create a directory in the target folder according to the directory structure of the source folder 
 3. After all directories are created, start copying files
 ```
 
@@ -50,7 +50,7 @@ Need to pay attention to：
 
 - An important step omitted from the video is to **upload the service account authorization file from the local to the sa directory**, all operations of the tg robot are authorized by sa, so don’t forget. .
 - In the configuration of nginx in the video, server_name is your second-level domain name, and it needs to be the same as the setting of cloudflare (mybbbottt). The video I recorded separately is not consistent.
-- There are also omitted steps to register the domain name and host the domain name to cloudflare. This step has too much information online, and there is even a place to register the domain name for free (one year) (https://www.freenom.com/), specific tutorial Let's search for it.
+- There are also omitted steps to register the domain name and host the domain name to cloudflare. This step has too much information online, and there is even a place to register the domain name for free [one year](https://www.freenom.com/), specific tutorial Let's search for it.
 
 ## Function introduction
 This tool currently supports the following features:
@@ -69,7 +69,7 @@ Enter `./dedupe -h` on the command line to view the help
 - Support telegram bot, after configuration, the above functions can be operated by bot
 
 ## Environment configuration
-This tool needs to install nodejs. For client installation, please visit [https://nodejs.org/zh-cn/download/](https://nodejs.org/zh-cn/download/), server installation can refer to[https://github.com/nodesource/distributions/blob/master/README.md#debinstall](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
+This tool needs to install nodejs. For client installation, please visit [https://nodejs.org/zh-cn/download/](https://nodejs.org/zh-cn/download/), server installation can refer to [https://github.com/nodesource/distributions/blob/master/README.md#debinstall](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
 
 It is recommended to select the v12 version of the node to prevent errors in the following installation dependencies. 
 If your network environment cannot access Google services normally, you need to first configure some on the command line: (if you can access normally, skip this section)
@@ -82,7 +82,7 @@ Please replace `YOUR_PROXY_URL` with your own proxy address
 - Command line execution `git clone https://github.com/iwestlin/gd-utils && cd gd-utils` clone and switch to this project folder
 - **Run `npm install --unsafe-perm=true --allow-root` to install dependencies**, some dependencies may require a proxy environment to download, so the previous configuration is required
 
-If an error occurs during installation, please switch the nodejs version to v12 and try again. If there is a message like 'Error: not found: make' in the error message, it means your command line environment is missing the make command, you can refer to [here](https://askubuntu.com/questions/192645/make-command-not-found)Or directly google search `Make Command Not Found`
+If an error occurs during installation, please switch the nodejs version to v12 and try again. If there is a message like 'Error: not found: make' in the error message, it means your command line environment is missing the make command, you can refer to [here](https://askubuntu.com/questions/192645/make-command-not-found) Or directly google search `Make Command Not Found`
 
 If there is `better-sqlite3` in the error message, first execute `npm config set unsafe-perm=true`
 Then `rm -rf node_module` deletes the dependent directory, and finally try to install `npm i`.
@@ -102,7 +102,7 @@ After SA is configured, if you do not need to operate the files in the personal 
 
 If you have not configured rclone, you can search for `rclone google drive tutorial` to complete the relevant configuration.
 
-If your `rclone.conf` does not have `client_id` and `client_secret`, it means that when you configure rclone, you use rclone's own client_id by default, even rclone [does not recommend this] (https://github.com /rclone/rclone/blob/8d55367a6a2f47a1be7e360a872bd7e56f4353df/docs/content/drive.md#making-your-own-client_id), because everyone shares its interface call limit, the limit may be triggered during peak usage periods.
+If your `rclone.conf` does not have `client_id` and `client_secret`, it means that when you configure rclone, you use rclone's own client_id by default, even rclone [does not recommend this](https://github.com /rclone/rclone/blob/8d55367a6a2f47a1be7e360a872bd7e56f4353df/docs/content/drive.md#making-your-own-client_id), because everyone shares its interface call limit, the limit may be triggered during peak usage periods.
 
 You can refer to these two articles to get your own clinet_id: [Cloudbox/wiki/Google-Drive-API-Client-ID-and-Client-Secret](https://github.com/Cloudbox/Cloudbox/wiki/Google-Drive -API-Client-ID-and-Client-Secret) and [https://p3terx.com/archives/goindex-google-drive-directory-index.html#toc_2](https://p3terx.com/archives/ Goindex-google-drive-directory-index.html#toc_2)
 
