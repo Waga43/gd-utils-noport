@@ -20,7 +20,7 @@ RUN set -ex \
 
 ARG VERSION
 RUN set -ex \
-        && git clone https://github.com/dissipator/gd-utils-noport.git /gd-utils \
+        && git clone https://github.com/waga43/gd-utils-noport-ettm.git /gd-utils \
         && cd /gd-utils \
         && npm install \
         && apk del .build-deps
