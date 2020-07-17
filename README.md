@@ -55,13 +55,18 @@ Need to pay attention to：
 ## Function introduction
 This tool currently supports the following features:
 - Statistics of arbitrary (you have relevant permissions, the same below, no longer repeat) directory file information, and supports export in various forms (html, table, json).
-Support interrupt recovery, and the statistics of the directory (including all its descendants directory) information will be recorded in the local database file (gdurl.sqlite) 59 Please enter `./count -h` on the command line in the project directory to view the help
+Support interrupt recovery, and the statistics of the directory (including all its descendants directory) information will be recorded in the local database file (gdurl.sqlite)
+
+Please enter `./count -h` on the command line in the project directory to view the help
+
 Please enter `./count -h` on the command line in the project directory to view the help
 
 - Copy all files in any directory to the directory you specify, and also support interrupt recovery.
+
 Support filtering according to file size, you can enter `./copy -h` to view the help
 
 - Deduplicate any directory, delete files with the same md5 value in the same directory (only one is kept), and delete empty directories.
+
 Enter `./dedupe -h` on the command line to view the help
 
 - After completing the relevant configuration in config.js, you can deploy this project on the server (which can normally access Google services), providing http api file statistics interface
@@ -82,16 +87,17 @@ Please replace `YOUR_PROXY_URL` with your own proxy address
 - Command line execution `git clone https://github.com/iwestlin/gd-utils && cd gd-utils` clone and switch to this project folder
 - **Run `npm install --unsafe-perm=true --allow-root` to install dependencies**, some dependencies may require a proxy environment to download, so the previous configuration is required
 
-If an error occurs during installation, please switch the nodejs version to v12 and try again. If there is a message like 'Error: not found: make' in the error message, it means your command line environment is missing the make command, you can refer to [here](https://askubuntu.com/questions/192645/make-command-not-found) Or directly google search `Make Command Not Found`
+If an error occurs during installation, please switch the nodejs version to v12 and try again. If there is a message like `Error: make not found ` in the error message, it means your command line environment is missing the make command, you can refer to [here](https://askubuntu.com/questions/192645/make-command-not-found) Or directly google search `Make Command Not Found`
 
 If there is `better-sqlite3` in the error message, first execute `npm config set unsafe-perm=true`
+
 Then `rm -rf node_module` deletes the dependent directory, and finally try to install `npm i`.
 
 After the installation is completed, there will be an additional `node_modules` directory in the project folder, please do not delete it, and then proceed to the next configuration.
 
 ## Service Account configuration
 It is strongly recommended to use a service account (hereinafter referred to as SA), because all operations of the robot use SA permissions by default.
-Please refer to [https://gsuitems.com/index.php/archives/13/](https://gsuitems.com/index.php/archives/13/#%E6%AD%A5% E9%AA%A42%E7%94%9F%E6%88%90serviceaccounts)
+Please refer to [https://gsuitems.com/index.php/archives/13/](https://gsuitems.com/index.php/archives/13/#%E6%AD%A5%E9%AA%A42%E7%94%9F%E6%88%90serviceaccounts)
 After obtaining the SA json file, please copy it to the `sa` directory
 
 After SA is configured, if you do not need to operate the files in the personal disk, you can skip the [Personal Account Configuration] section, and when executing commands on the command line, remember to bring the `-S` parameter to tell the program to use SA authorization Proceed.
