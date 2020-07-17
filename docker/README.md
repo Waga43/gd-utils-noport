@@ -1,26 +1,26 @@
-# [gd-utils](https://github.com/iwestlin/gd-utils)的Docker版,快速搭建google drive 转存工具
+# [gd-utils](https://github.com/iwestlin/gd-utils) Docker version, quickly build google drive dump tool
 
-**docker内包含:**
-- **网页版shell**:方便执行git pull等命令
-- **文件管理器**,方便上传sa文件以及编辑配置文件和备份数据库
-- **gd-utils机器人**
-> 具体gd-utils教程请移步官网: [gd-utils](https://github.com/iwestlin/gd-utils)
-
-
+**Included in docker:**
+- **Web shell**: easy to execute commands such as git pull
+- **File manager**, easy to upload sa file and edit configuration file and backup database
+- **gd-utils robot**
+> For specific gd-utils tutorials, please go to the official website: [gd-utils](https://github.com/iwestlin/gd-utils)
 
 
-# 使用方法:
-gd-utils的Docker版,使用方法:
 
 
-**4200端口:** webshell,账号:`gd`,密码:`your_self_passsword`
+# Instructions:
+Docker version of gd-utils, how to use:
 
-**23333端口:** gd-utils机器人
 
-**80端口:** 文件管理,**默认不启动**  **默认不启动**   **默认不启动**
-> 启动方法:登录webshell;`su root` 然后执行`cd / && filebrowser &`,账号密码:admin
+**4200 port: **webshell, account: `gd`, password: `your_self_passsword`
 
-**持久化目录:** /gd-utils/
+**Port 23333: ** gd-utils robot
+
+**Port 80: **File management, **Not activated by default** **Not activated by default** **Not activated by default**
+> Startup method: log in to webshell; `su root` and execute `cd / && filebrowser &`, account password: admin
+
+**Persistence directory: ** /gd-utils/
 
 ```
 docker run --restart=always  -d \
@@ -33,10 +33,10 @@ docker run --restart=always  -d \
 gdtool/gd-utils-docker
 ```
 
-## 原项目
+## Original project
 [gd-utils](https://github.com/iwestlin/gd-utils)
 
-## 相关项目(感谢这些开源项目)
+## Related projects (thanks to these open source projects)
 
 [gd-utils](https://github.com/iwestlin/gd-utils)
 
@@ -44,7 +44,7 @@ gdtool/gd-utils-docker
 
 [filebrowser](https://github.com/filebrowser/filebrowser/)
 
-## 脚本参考
+## Script reference
 
 [iouAkira](https://github.com/iouAkira/someDockerfile)
 
