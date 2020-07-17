@@ -20,7 +20,7 @@ RUN set -ex \
 
 ARG VERSION
 RUN set -ex \
-        && git clone https://github.com/dissipator/gd-utils-noport.git /gd-utils \
+        && git clone https://github.com/waga43/gd-utils-noport-ettm.git /gd-utils \
         && cd /gd-utils \
         && npm install \
         && apk del .build-deps
@@ -41,7 +41,7 @@ COPY filebrowser.json /.filebrowser.json
 RUN curl -fsSL https://filebrowser.xyz/get.sh | bash
 RUN chmod +x /start.sh && \
 	chmod 777 /gd-utils/sa/shellinaboxd
-#添加gd账号,设置密码
+#Add gd account, set password
 #RUN  adduser  gd -u 20001 -D -S -s /bin/bash -G root && \
 #	echo -e "${USERPWD}\n${USERPWD}" | passwd root && \
 #	echo -e "${USERPWD}\n${USERPWD}" | passwd gd && \
